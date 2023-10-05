@@ -3,12 +3,14 @@ import React, { useState } from "react";
 const Join = () => {
    
    const handleSubmit=(e)=>{
-     console.log(e)
+      e.preventDefault();
+     console.log(e.target.text[0].value)
     }
     const handleChange=(e)=>{
+      e.preventDefault();
       const name=e.target.name;
       const value=e.target.value;
-      console.log(state.name)
+      console.log(value)
       
       // let error='',errors='';
       // if (name==="name" && value.trim()===''){
@@ -33,7 +35,7 @@ return <>
                <div class="col-md-12">
                   <div class="mail_section_1">
                      <h1 class="contact_taital">Contact Us</h1>
-                     <form onSubmit={handleSubmit}>
+                     <form onSubmit={handleSubmit} method="post">
                      <input type="text" class="mail_text_1" placeholder="Name" name="text" onChange={handleChange}/>
                      <input type="text" class="mail_text_1" placeholder="Email" name="text"/>
                      <input type="text" class="mail_text_1" placeholder="Phone Number" name="text"/>
