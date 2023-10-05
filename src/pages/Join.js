@@ -3,8 +3,8 @@ import React, { useState } from "react";
 const Join = () => {
    
    const handleSubmit=(e)=>{
-      e.preventDefault();
-     console.log(e.target.text[0].value)
+     e.preventDefault();
+     console.log(e.target.name.value)
     }
     const handleChange=(e)=>{
       e.preventDefault();
@@ -36,10 +36,10 @@ return <>
                   <div class="mail_section_1">
                      <h1 class="contact_taital">Contact Us</h1>
                      <form onSubmit={handleSubmit} method="post">
-                     <input type="text" class="mail_text_1" placeholder="Name" name="text" onChange={handleChange}/>
-                     <input type="text" class="mail_text_1" placeholder="Email" name="text"/>
-                     <input type="text" class="mail_text_1" placeholder="Phone Number" name="text"/>
-                     <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
+                     <input type="text" class="mail_text_1" placeholder="Name" name="name" onChange={handleChange}/>
+                     <input type="text" class="mail_text_1" placeholder="Email" name="email"/>
+                     <input type="text" class="mail_text_1" placeholder="Phone Number" name="phone"/>
+                     <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="message"></textarea>
                      <button>Submit</button>
                      </form>
                   </div>
