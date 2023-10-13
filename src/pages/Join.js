@@ -4,6 +4,7 @@ import { setUserSession } from '../utils/common';
 import axios from 'axios';
 
 const Join = () => {
+   const [sucessmesg, setMessage] = useState(null);
    const [error, setError] = useState(null);
    const [loading, setLoading] = useState(false);
    const history = useNavigate();
@@ -16,8 +17,10 @@ const Join = () => {
       axios.post('http://127.0.0.1:8000/api/contact/store', { name: name, email: email, message: message }).then(response => {
          setLoading(false);
          console.log(response)
-         setUserSession(response.data.token, response.data.user);
-         history('/dashboard');
+        // setUserSession(response.data.token, response.data.user);
+         setMessage('store');
+
+         //history('/dashboard');
       }).catch(error => {
          setLoading(false);
          if (error.response.status === 401) setError(error.response.data.message);
