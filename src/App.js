@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
   const [color, setColor] = useState("red");
+  
   return (
     <>
     <div className="App">

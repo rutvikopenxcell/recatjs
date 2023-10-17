@@ -5,13 +5,12 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Layout from "./pages/Layout";
 import Join from "./pages/Join";
-
-
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+console.log('entre')
 root.render(
   <BrowserRouter>
       <Routes>
@@ -19,6 +18,7 @@ root.render(
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="join" element={<Join />} />
+          <Route path="contactus" element={<Join />} />
         </Route>
       </Routes>
     </BrowserRouter>
