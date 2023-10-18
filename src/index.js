@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Layout from "./pages/Layout";
 import Join from "./pages/Join";
+import Volunteersjoin from "./pages/Volunteersjoin";
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -19,6 +21,7 @@ root.render(
           <Route path="about" element={<About />} />
           <Route path="join" element={<Join />} />
           <Route path="contactus" element={<Join />} />
+          <Route path="volunteer/join" element={<Volunteersjoin />} />
         </Route>
       </Routes>
     </BrowserRouter>

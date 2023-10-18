@@ -75,7 +75,7 @@ const Home = () => {
                                 <div className="icon_1"><img src="images/icon-1.png" /></div>
                                 <h4 className="volunteer_text">VOLUNTEERS</h4>
                                 <p className="lorem_text">Lorem Ipsum generators on the Internet tend to repeat predefined</p>
-                                <div className="join_bt"> <Link  to="/join">Join Now</Link></div>
+                                <div className="join_bt"> <Link  to="/volunteer/join">Join Now</Link></div>
                             </div>
                         </div>
                         <div className="col-lg-4">
