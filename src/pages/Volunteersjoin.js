@@ -13,6 +13,8 @@ const Volunteersjoin = () => {
 
     //api call
     const url = "http://127.0.0.1:8000/api/state/list";
+    const url2 = "http://127.0.0.1:8000/api/state/list";
+
     const [data, setData] = useState([]);
 
     const fetchInfo = () => {
@@ -57,8 +59,9 @@ const Volunteersjoin = () => {
     const handleChange = (e) => {
         e.preventDefault();
         const name = e.target.name;
-        console.log(name,value)
         const value = e.target.value;
+        console.log(name,value)
+
         if (name === "name" && value === "") {
             setNameError(true);
         } else {
