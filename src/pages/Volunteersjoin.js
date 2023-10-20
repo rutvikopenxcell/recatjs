@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { setUserSession } from '../utils/common';
 import axios from 'axios';
@@ -10,6 +10,22 @@ const Volunteersjoin = () => {
     const [mailerror, setMailError] = useState(false);
     const [nameerror, setNameError] = useState(false);
     const history = useNavigate();
+
+    //api call
+    const url = "http://127.0.0.1:8000/api/state/list";
+    const [data, setData] = useState([]);
+
+    const fetchInfo = () => {
+        return axios.get(url).then((res) => setData(res.data.state));
+    };
+    useEffect(() => {
+        fetchInfo();
+    }, []);
+
+    console.log(data)
+    //console.log(data.state.map((name) => name.id));
+
+    //api call end
     const handleSubmit = (e) => {
         e.preventDefault();
         const name = e.target.name.value
@@ -41,6 +57,7 @@ const Volunteersjoin = () => {
     const handleChange = (e) => {
         e.preventDefault();
         const name = e.target.name;
+        console.log(name,value)
         const value = e.target.value;
         if (name === "name" && value === "") {
             setNameError(true);
@@ -55,33 +72,48 @@ const Volunteersjoin = () => {
         }
     }
     return <>
-        <div class="contact_section layout_padding">
-            <div class="container">
-                <div class="contact_section_2">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="mail_section_1">
-                                <h1 class="contact_taital">Register</h1>
+
+        <div className="contact_section layout_padding">
+            <div className="container">
+                <div className="contact_section_2">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="mail_section_1">
+                                <h1 className="contact_taital">Register</h1>
                                 <form onSubmit={handleSubmit} method="post">
                                     <div>
-                                        <input type="text" class="mail_text_1" placeholder="Name" name="name" onChange={handleChange} />
+                                        <input type="text" className="mail_text_1" placeholder="Name" name="name" onChange={handleChange} />
                                         {nameerror && <span style={{ color: "red" }}>
                                             *name* is mandatory </span>}
                                     </div>
-                                    <input type="text" class="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
-                                    {mailerror && <span style={{ color: "red" }}>
-                                        *email* is mandatory </span>}
 
+                                    <div>
+                                        <input type="text" className="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
+                                        {mailerror && <span style={{ color: "red" }}>
+                                            *email* is mandatory </span>}
+                                    </div>
+                                    <div>
+                                        <input type="text" className="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
+                                        {mailerror && <span style={{ color: "red" }}>
+                                            *email* is mandatory </span>}
+                                    </div>
 
-                                    <input type="text" class="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
-                                    {mailerror && <span style={{ color: "red" }}>
-                                        *email* is mandatory </span>}
+                                    <div>
+                                        <input type="text" className="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
+                                        {mailerror && <span style={{ color: "red" }}>
+                                            *email* is mandatory </span>}
 
+                                    </div>
+                                    <select name="cars" id="cars" className="mail_text_1" form="carform" onChange={handleChange}>
 
-                                    <input type="text" class="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
-                                    {mailerror && <span style={{ color: "red" }}>
-                                        *email* is mandatory </span>}
+                                        {data.map((datao, index) => {
+                                            return (
+                                                <option value="audi">{datao.name}</option>
+                                            );
+                                        })}
 
+                                    </select>
+                                   <br/>
                                     <button className="btn btn-danger">Register</button>
                                 </form>
                             </div>
