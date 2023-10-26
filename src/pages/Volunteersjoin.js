@@ -6,24 +6,45 @@ import axios from 'axios';
 const Volunteersjoin = () => {
     const [sucessmesg, setMessage] = useState(null);
     const [error, setError] = useState(null);
+    const [citylist, setCity] = useState(null);
+
     //error message show when click on submit
     const [mailerror, setMailError] = useState(false);
     const [nameerror, setNameError] = useState(false);
+    const [cityStatus, setCityStatus] = useState(false);
+    const [cityid, setCityId] = useState(1);
+
+
     const history = useNavigate();
 
     //api call
-    const url = "http://127.0.0.1:8000/api/state/list";
-    const url2 = "http://127.0.0.1:8000/api/state/list";
+    console.log(cityid,'cityoid');
+    const state = "http://127.0.0.1:8000/api/state/list";
+    const city = 'http://127.0.0.1:8000/api/city/list/'+cityid;
+    console.log(city)
 
     const [data, setData] = useState([]);
-
-    const fetchInfo = () => {
-        return axios.get(url).then((res) => setData(res.data.state));
+    const [datacity, setCityData] = useState([]);
+    const fetchInfo = async () => {
+        return axios.get(state).then((res) => setData(res.data.state));
+    };
+    const fetchCity =  () => {
+        return axios.get(city).
+        then((res) => setCityData(res.data.city));
     };
     useEffect(() => {
         fetchInfo();
+        if (cityStatus) {
+            fetchCity(); 
+        }
     }, []);
 
+
+    //city api calling
+
+  
+    //end api
+    console.log(datacity)
     console.log(data)
     //console.log(data.state.map((name) => name.id));
 
@@ -41,6 +62,7 @@ const Volunteersjoin = () => {
         if (!name) {
             console.log('enter in name')
             setNameError(true);
+            
         }
 
         console.log(mailerror)
@@ -60,7 +82,7 @@ const Volunteersjoin = () => {
         e.preventDefault();
         const name = e.target.name;
         const value = e.target.value;
-        console.log(name,value)
+        console.log(name, value)
 
         if (name === "name" && value === "") {
             setNameError(true);
@@ -73,6 +95,12 @@ const Volunteersjoin = () => {
         } else {
             setMailError(false);
         }
+
+        if (name == 'state') {
+            setCityId(value)
+            setCityStatus(true);
+        }
+
     }
     return <>
 
@@ -107,16 +135,24 @@ const Volunteersjoin = () => {
                                             *email* is mandatory </span>}
 
                                     </div>
-                                    <select name="cars" id="cars" className="mail_text_1" form="carform" onChange={handleChange}>
+                                    <select name="state" id="state" className="mail_text_1" form="carform" onChange={handleChange}>
 
                                         {data.map((datao, index) => {
                                             return (
-                                                <option value="audi">{datao.name}</option>
+                                                <option value={datao.id}>{datao.name}</option>
                                             );
                                         })}
 
                                     </select>
-                                   <br/>
+
+                                    {citylist &&
+                                        <select name="city" id="city" className="mail_text_1" form="carform" onChange={handleChange}>
+
+
+
+                                        </select>}
+
+                                    <br />
                                     <button className="btn btn-danger">Register</button>
                                 </form>
                             </div>
