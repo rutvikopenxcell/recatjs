@@ -18,9 +18,9 @@ const Volunteersjoin = () => {
     const history = useNavigate();
 
     //api call
-    console.log(cityid,'cityoid');
+    console.log(cityid, 'cityoid');
     const state = "http://127.0.0.1:8000/api/state/list";
-    const city = 'http://127.0.0.1:8000/api/city/list/'+cityid;
+    const city = 'http://127.0.0.1:8000/api/city/list/' + cityid;
     console.log(city)
 
     const [data, setData] = useState([]);
@@ -28,21 +28,21 @@ const Volunteersjoin = () => {
     const fetchInfo = async () => {
         return axios.get(state).then((res) => setData(res.data.state));
     };
-    const fetchCity =  () => {
+    const fetchCity = () => {
         return axios.get(city).
-        then((res) => setCityData(res.data.city));
+            then((res) => setCityData(res.data.city));
     };
     useEffect(() => {
         fetchInfo();
         if (cityStatus) {
-            fetchCity(); 
+            fetchCity();
         }
-    }, []);
+    }, [cityid]);
 
 
     //city api calling
 
-  
+
     //end api
     console.log(datacity)
     console.log(data)
@@ -62,7 +62,6 @@ const Volunteersjoin = () => {
         if (!name) {
             console.log('enter in name')
             setNameError(true);
-            
         }
 
         console.log(mailerror)
@@ -95,8 +94,11 @@ const Volunteersjoin = () => {
         } else {
             setMailError(false);
         }
+        if (name == 'state' && value == "") {
+            setCityStatus(false);
+        }
 
-        if (name == 'state') {
+        if (name == 'state' && value != "" ) {
             setCityId(value)
             setCityStatus(true);
         }
@@ -124,18 +126,19 @@ const Volunteersjoin = () => {
                                             *email* is mandatory </span>}
                                     </div>
                                     <div>
-                                        <input type="text" className="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
+                                        <input type="text" className="mail_text_1" placeholder="Address" name="email" onChange={handleChange} />
                                         {mailerror && <span style={{ color: "red" }}>
-                                            *email* is mandatory </span>}
+                                            *address* is mandatory </span>}
                                     </div>
 
                                     <div>
-                                        <input type="text" className="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
+                                        <input type="number" className="mail_text_1" placeholder="Mobile" name="email" onChange={handleChange} />
                                         {mailerror && <span style={{ color: "red" }}>
-                                            *email* is mandatory </span>}
+                                            *mobile* is mandatory </span>}
 
                                     </div>
                                     <select name="state" id="state" className="mail_text_1" form="carform" onChange={handleChange}>
+                                       <option value="">select state</option>
 
                                         {data.map((datao, index) => {
                                             return (
@@ -145,11 +148,13 @@ const Volunteersjoin = () => {
 
                                     </select>
 
-                                    {citylist &&
+                                    {cityStatus &&
                                         <select name="city" id="city" className="mail_text_1" form="carform" onChange={handleChange}>
-
-
-
+                                         {datacity.map((datao, index) => {
+                                            return (
+                                                <option value={datao.id}>{datao.name}</option>
+                                            );
+                                        })}
                                         </select>}
 
                                     <br />

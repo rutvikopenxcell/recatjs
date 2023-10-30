@@ -82,9 +82,11 @@ const Join = () => {
                            <input type="text" class="mail_text_1" placeholder="Email" name="email" onChange={handleChange} />
                            {mailerror && <span style={{ color: "red" }}>
                               *email* is mandatory </span>}
+                           <div>
                            <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="message" onChange={handleChange}></textarea>
                            {texterror && <span style={{ color: "red" }}>
                               *message* is mandatory </span>}
+                              </div>
                            <button className="btn btn-danger">Submit</button>
                         </form>
                      </div>
