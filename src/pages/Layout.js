@@ -5,7 +5,11 @@ import '../css/bootstrap.min.css';
 import '../css/style.css';
 import '../css/loader.css';
 import logo from '../images/logo.png';
-import Spinner from 'react-bootstrap/Spinner';
+import Facebook from '../images/fb-icon.png';
+import insta from '../images/instagram-icon.png';
+import Linkdin from '../images/linkedin-icon.png';
+import Twitter from '../images/twitter-icon.png';
+import Footerlogo from '../images/footer-logo.png';
 
 
 const Layout = () => {
@@ -62,7 +66,7 @@ const Layout = () => {
                <div className="container">
                   <div className="row">
                      <div className="col-sm-6 col-md-6 col-lg-3">
-                        <div className="footer_logo"><img src="images/footer-logo.png" /></div>
+                        <div className="footer_logo"><img src={Footerlogo} /></div>
                      </div>
                      <div className="col-sm-6 col-md-6 col-lg-3">
                         <h4 className="footer_taital">NAVIGATION</h4>
@@ -105,10 +109,10 @@ const Layout = () => {
                         <div className="col-sm-4 col-md-4 col-lg-3">
                            <div className="social_icon">
                               <ul>
-                                 <li><a href="#"><img src="images/fb-icon.png" /></a></li>
-                                 <li><a href="#"><img src="images/twitter-icon.png" /></a></li>
-                                 <li><a href="#"><img src="images/linkedin-icon.png" /></a></li>
-                                 <li><a href="#"><img src="images/instagram-icon.png" /></a></li>
+                                 <li><a href="#"><img src={Facebook} /></a></li>
+                                 <li><a href="#"><img src={Twitter} /></a></li>
+                                 <li><a href="#"><img src={Linkdin} /></a></li>
+                                 <li><a href="#"><img src={insta} /></a></li>
                               </ul>
                            </div>
                         </div>

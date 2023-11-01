@@ -6,15 +6,14 @@ import axios from 'axios';
 const Volunteersjoin = () => {
     const [sucessmesg, setMessage] = useState(null);
     const [error, setError] = useState(null);
-    const [citylist, setCity] = useState(null);
 
     //error message show when click on submit
     const [mailerror, setMailError] = useState(false);
     const [nameerror, setNameError] = useState(false);
     const [cityStatus, setCityStatus] = useState(false);
+    const [cityerror, setCityError] = useState(null);
+    const [stateerror, setStateError] = useState(null);
     const [cityid, setCityId] = useState(1);
-
-
     const history = useNavigate();
 
     //api call
@@ -51,9 +50,14 @@ const Volunteersjoin = () => {
     //api call end
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(e.target)
         const name = e.target.name.value
         const email = e.target.email.value
-        console.log(name, email)
+         //const city = e.target.city.value
+         const stateindi = e.target.statename.value
+        // const mobile = e.target.mobile.value
+
+        console.log(name,email,stateindi)
 
         if (!email) {
             console.log('enter in email')
@@ -63,6 +67,18 @@ const Volunteersjoin = () => {
             console.log('enter in name')
             setNameError(true);
         }
+        // if (!city) {
+        //     console.log('enter in name')
+        //     setCityError(true);
+        // }
+        // if (!state) {
+        //     console.log('enter in name')
+        //     setStateError(true);
+        // }
+        // if (!mobile) {
+        //     console.log('enter in name')
+        //     setNameError(true);
+        // }
 
         console.log(mailerror)
         if (name && email) {
@@ -94,11 +110,11 @@ const Volunteersjoin = () => {
         } else {
             setMailError(false);
         }
-        if (name == 'state' && value == "") {
+        if (name == 'statename' && value == "") {
             setCityStatus(false);
         }
 
-        if (name == 'state' && value != "" ) {
+        if (name == 'statename' && value != "" ) {
             setCityId(value)
             setCityStatus(true);
         }
@@ -126,19 +142,19 @@ const Volunteersjoin = () => {
                                             *email* is mandatory </span>}
                                     </div>
                                     <div>
-                                        <input type="text" className="mail_text_1" placeholder="Address" name="email" onChange={handleChange} />
+                                        <input type="text" className="mail_text_1" placeholder="Address" name="address" onChange={handleChange} />
                                         {mailerror && <span style={{ color: "red" }}>
                                             *address* is mandatory </span>}
                                     </div>
 
                                     <div>
-                                        <input type="number" className="mail_text_1" placeholder="Mobile" name="email" onChange={handleChange} />
+                                        <input type="number" className="mail_text_1" placeholder="Mobile" name="mobile" onChange={handleChange} />
                                         {mailerror && <span style={{ color: "red" }}>
                                             *mobile* is mandatory </span>}
 
                                     </div>
-                                    <select name="state" id="state" className="mail_text_1" form="carform" onChange={handleChange}>
-                                       <option value="">select state</option>
+                                    <select name="statename" id="statename" className="mail_text_1" form="carform" onChange={handleChange}>
+                                       <option value="0">select state</option>
 
                                         {data.map((datao, index) => {
                                             return (
@@ -147,9 +163,12 @@ const Volunteersjoin = () => {
                                         })}
 
                                     </select>
+                                    {stateerror && <span style={{ color: "red" }}>
+                                            *state* is mandatory </span>}
 
                                     {cityStatus &&
-                                        <select name="city" id="city" className="mail_text_1" form="carform" onChange={handleChange}>
+                                        <select name="city" id="city" className="mail_text_1" form="carform"onChange={handleChange}>
+                                         <option value="0">select city</option>
                                          {datacity.map((datao, index) => {
                                             return (
                                                 <option value={datao.id}>{datao.name}</option>
@@ -158,7 +177,7 @@ const Volunteersjoin = () => {
                                         </select>}
 
                                     <br />
-                                    <button className="btn btn-danger">Register</button>
+                                    <button style={{marginTop: "20px"}} className="btn btn-danger">Register</button>
                                 </form>
                             </div>
                         </div>

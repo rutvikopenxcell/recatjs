@@ -5,6 +5,11 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Layout from "./pages/Layout";
 import Join from "./pages/Join";
+import News from "./pages/News";
+import Donate from "./pages/Donate";
+import Mission from "./pages/Mission";
+
+
 import Volunteersjoin from "./pages/Volunteersjoin";
 
 import './index.css';
@@ -21,6 +26,9 @@ root.render(
           <Route path="about" element={<About />} />
           <Route path="join" element={<Join />} />
           <Route path="contactus" element={<Join />} />
+          <Route path="news" element={<News />} />
+          <Route path="donate" element={<Donate />} />
+          <Route path="mission" element={<Mission />} />
           <Route path="volunteer/join" element={<Volunteersjoin />} />
         </Route>
       </Routes>
