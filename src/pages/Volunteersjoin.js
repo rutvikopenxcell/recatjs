@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { setUserSession } from '../utils/common';
 import axios from 'axios';
+import {Statelist,Citylist} from '../Api'
 
 const Volunteersjoin = () => {
     const [sucessmesg, setMessage] = useState(null);
@@ -14,13 +15,15 @@ const Volunteersjoin = () => {
     const [cityerror, setCityError] = useState(null);
     const [stateerror, setStateError] = useState(null);
     const [cityid, setCityId] = useState(1);
-    const history = useNavigate();
+    //city and state value 
+    const [cityvalue, setCityvalue] = useState(1);
+    const [statevalue, serStatevalue] = useState(null);
+
+    //const history = useNavigate();
 
     //api call
-    console.log(cityid, 'cityoid');
-    const state = "http://127.0.0.1:8000/api/state/list";
-    const city = 'http://127.0.0.1:8000/api/city/list/' + cityid;
-    console.log(city)
+    const state = Statelist;
+    const city =  Citylist + cityid;
 
     const [data, setData] = useState([]);
     const [datacity, setCityData] = useState([]);
@@ -36,54 +39,39 @@ const Volunteersjoin = () => {
         if (cityStatus) {
             fetchCity();
         }
-    }, [cityid]);
+    }, [cityid,cityvalue,statevalue]);
 
 
     //city api calling
 
 
     //end api
-    console.log(datacity)
-    console.log(data)
-    //console.log(data.state.map((name) => name.id));
 
     //api call end
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e.target)
         const name = e.target.name.value
         const email = e.target.email.value
-         //const city = e.target.city.value
-         const stateindi = e.target.statename.value
-        // const mobile = e.target.mobile.value
-
-        console.log(name,email,stateindi)
+        const mobile = e.target.mobile.value
 
         if (!email) {
-            console.log('enter in email')
             setMailError(true);
         }
         if (!name) {
-            console.log('enter in name')
             setNameError(true);
         }
-        // if (!city) {
-        //     console.log('enter in name')
-        //     setCityError(true);
-        // }
-        // if (!state) {
-        //     console.log('enter in name')
+        if (!statevalue) {
+            setStateError(true);
+        }
+        // if (!statevalue) {
         //     setStateError(true);
         // }
-        // if (!mobile) {
-        //     console.log('enter in name')
-        //     setNameError(true);
-        // }
+        if (!mobile) {
+            setNameError(true);
+        }
 
-        console.log(mailerror)
         if (name && email) {
             axios.post('http://127.0.0.1:8000/api/contact/store', { name: name, email: email }).then(response => {
-                console.log(response)
                 // setUserSession(response.data.token, response.data.user);
                 setMessage('store');
                 //history('/dashboard');
@@ -97,7 +85,6 @@ const Volunteersjoin = () => {
         e.preventDefault();
         const name = e.target.name;
         const value = e.target.value;
-        console.log(name, value)
 
         if (name === "name" && value === "") {
             setNameError(true);
@@ -110,13 +97,20 @@ const Volunteersjoin = () => {
         } else {
             setMailError(false);
         }
-        if (name == 'statename' && value == "") {
+        if (name == 'statename' && value == "0") {
             setCityStatus(false);
+            serStatevalue(value)
+            setStateError(true)
         }
-
-        if (name == 'statename' && value != "" ) {
+                       
+        if (name == 'statename' && value != "0" ) {
             setCityId(value)
             setCityStatus(true);
+            serStatevalue(value);
+            setStateError(false)
+        }
+        if (name == 'city' && value != "" ) {
+            setCityvalue(value);
         }
 
     }
