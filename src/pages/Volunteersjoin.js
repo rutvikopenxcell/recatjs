@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { setUserSession } from '../utils/common';
 import axios from 'axios';
-import {Statelist,Citylist} from '../Api'
+import { Statelist, Citylist,Volunteerjoin } from '../Api'
 
 const Volunteersjoin = () => {
     const [sucessmesg, setMessage] = useState(null);
@@ -23,7 +23,7 @@ const Volunteersjoin = () => {
 
     //api call
     const state = Statelist;
-    const city =  Citylist + cityid;
+    const city = Citylist + cityid;
 
     const [data, setData] = useState([]);
     const [datacity, setCityData] = useState([]);
@@ -39,7 +39,7 @@ const Volunteersjoin = () => {
         if (cityStatus) {
             fetchCity();
         }
-    }, [cityid,cityvalue,statevalue]);
+    }, [cityid, cityvalue, statevalue]);
 
 
     //city api calling
@@ -53,6 +53,11 @@ const Volunteersjoin = () => {
         const name = e.target.name.value
         const email = e.target.email.value
         const mobile = e.target.mobile.value
+        
+        const address1 = e.target.mobile.value
+        const address2 = e.target.mobile.value
+        const gender = e.target.gender.value
+        console.log(address1,address2,gender)
 
         if (!email) {
             setMailError(true);
@@ -71,7 +76,7 @@ const Volunteersjoin = () => {
         }
 
         if (name && email) {
-            axios.post('http://127.0.0.1:8000/api/contact/store', { name: name, email: email }).then(response => {
+            axios.post(Volunteerjoin, { name: name, email: email, state: statevalue, city: cityvalue, mobile: mobile }).then(response => {
                 // setUserSession(response.data.token, response.data.user);
                 setMessage('store');
                 //history('/dashboard');
@@ -102,14 +107,14 @@ const Volunteersjoin = () => {
             serStatevalue(value)
             setStateError(true)
         }
-                       
-        if (name == 'statename' && value != "0" ) {
+
+        if (name == 'statename' && value != "0") {
             setCityId(value)
             setCityStatus(true);
             serStatevalue(value);
             setStateError(false)
         }
-        if (name == 'city' && value != "" ) {
+        if (name == 'city' && value != "") {
             setCityvalue(value);
         }
 
@@ -147,8 +152,32 @@ const Volunteersjoin = () => {
                                             *mobile* is mandatory </span>}
 
                                     </div>
+
+                                    <div>
+                                        <input type="text" className="mail_text_1" placeholder="address" name="address1" onChange={handleChange} />
+                                        {nameerror && <span style={{ color: "red" }}>
+                                            *address* is mandatory </span>}
+                                    </div>
+
+                                    <div>
+                                        <input type="text" className="mail_text_1" placeholder="address" name="address2" onChange={handleChange} />
+                                    </div>
+
+                                    <div>
+                                        <input type="number" className="mail_text_1" placeholder="pincode" name="pincode" onChange={handleChange} />
+                                        {nameerror && <span style={{ color: "red" }}>
+                                            *pincode* is mandatory </span>}
+                                    </div>
+                                     
+                                    <div>
+                                    <input type="radio" id="male" name="gender" value="0" checked/>
+                                    <label htmlFor="male">male</label>
+                                    <input type="radio" id="female" name="gender" value="1" />
+                                    <label htmlFor="female">female</label>
+                                    </div>
+
                                     <select name="statename" id="statename" className="mail_text_1" form="carform" onChange={handleChange}>
-                                       <option value="0">select state</option>
+                                        <option value="0">select state</option>
 
                                         {data.map((datao, index) => {
                                             return (
@@ -158,20 +187,20 @@ const Volunteersjoin = () => {
 
                                     </select>
                                     {stateerror && <span style={{ color: "red" }}>
-                                            *state* is mandatory </span>}
+                                        *state* is mandatory </span>}
 
                                     {cityStatus &&
-                                        <select name="city" id="city" className="mail_text_1" form="carform"onChange={handleChange}>
-                                         <option value="0">select city</option>
-                                         {datacity.map((datao, index) => {
-                                            return (
-                                                <option value={datao.id}>{datao.name}</option>
-                                            );
-                                        })}
+                                        <select name="city" id="city" className="mail_text_1" form="carform" onChange={handleChange}>
+                                            <option value="0">select city</option>
+                                            {datacity.map((datao, index) => {
+                                                return (
+                                                    <option value={datao.id}>{datao.name}</option>
+                                                );
+                                            })}
                                         </select>}
 
                                     <br />
-                                    <button style={{marginTop: "20px"}} className="btn btn-danger">Register</button>
+                                    <button style={{ marginTop: "20px" }} className="btn btn-danger">Register</button>
                                 </form>
                             </div>
                         </div>
