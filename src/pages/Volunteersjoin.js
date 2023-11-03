@@ -80,8 +80,7 @@ const Volunteersjoin = () => {
         if (name && email) {
             axios.post(Volunteerjoin, { name: name, email: email, state: statevalue, city: cityvalue, mobile: mobile , pincode :pincode ,address2:address2,address1:address1}).then(response => {
                 // setUserSession(response.data.token, response.data.user);
-                setMessage('store');
-                console.log('fdff')
+                setMessage('details has been susfully stored');
                 //history('/dashboard');
             }).catch(error => {
                 console.log(error.response.data)

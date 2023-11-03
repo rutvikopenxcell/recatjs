@@ -4,7 +4,7 @@ import Image1 from '../images/icon-1.png';
 import Image2 from '../images/icon-2.png';
 import Image3 from '../images/icon-3.png';
 import axios from 'axios';
-import { Statelist, Citylist,Volunteerjoin } from '../Api'
+import { Statelist, Citylist, Volunteerjoin } from '../Api'
 
 const Home = () => {
 
@@ -20,6 +20,7 @@ const Home = () => {
         const name = e.target.name.value
         const email = e.target.email.value
         const mobile = e.target.mobile.value
+        console.log(name, email, mobile)
         if (!email) {
             setMailError(true);
         }
@@ -27,19 +28,18 @@ const Home = () => {
             setNameError(true);
         }
         if (!mobile) {
-            setNameError(true);
+            setMobileError(true);
         }
 
         if (name && email) {
             axios.post(Volunteerjoin, { name: name, email: email, mobile: mobile }).then(response => {
                 // setUserSession(response.data.token, response.data.user);
-                setMessage('store');
-                console.log('njhkj')
+                setMessage('details has been susfully stored');
                 //history('/dashboard');
             }).catch(error => {
                 console.log(error.response.status)
                 if (error.response.status === 401) setError(error.response.data.message);
-                else if(error.response.status === 422) setError(error.response.data.message);
+                else if (error.response.status === 422) setError(error.response.data.message);
                 else setError("Something went wrong. Please try again later.");
             });
         }
@@ -47,17 +47,25 @@ const Home = () => {
     return <>
         <div className="banner_section layout_padding">
             <div className="container">
-              
+
             </div>
             <div className="donation_box">
                 <h4 className="donation_taital">Contact For Donation</h4>
                 <form onSubmit={handleSubmit} method="post">
-                <div className="mail_box">
-                    <input type="" className="mail_text" placeholder="Your Name" name="Your Name" />
-                    <input type="" className="mail_text" placeholder="Email" name="Email" />
-                    <input type="" className="mail_text" placeholder="Phone" name="Phone" />
-                </div>
-                <div className="send_bt"><a href="#">Send</a></div>
+                    <div className="mail_box">
+                        <input type="" className="mail_text" placeholder="Your Name" name="name" />
+                        {nameerror && <span style={{ color: "red" }}>
+                            *name* is mandatory </span>}
+                        <input type="" className="mail_text" placeholder="Email" name="email" />
+                        {mailerror && <span style={{ color: "red" }}>
+                            *email* is mandatory </span>}
+                        <input type="" className="mail_text" placeholder="Phone" name="mobile" />
+                        {mobileerror && <span style={{ color: "red" }}>
+                            *mobile* is mandatory </span>}
+                    </div>
+
+
+                    <div className="send_bt"> <button style={{ marginTop: "20px" }} className="btn btn-danger">send</button></div>
                 </form>
             </div>
             <div className="fundraise_section">

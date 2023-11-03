@@ -1,3 +1,4 @@
+import Image1 from '../images/about-img.png';
 const About = () => {
    return <>
       <div class="about_section layout_padding">
@@ -13,7 +14,7 @@ const About = () => {
                   <div class="readmore_bt"><a href="#">Read more</a></div>
                </div>
                <div class="col-sm-4">
-                  <div class="about_img"><img src="images/about-img.png" /></div>
+                  <div class="about_img"><img src={Image1} /></div>
                </div>
             </div>
          </div>

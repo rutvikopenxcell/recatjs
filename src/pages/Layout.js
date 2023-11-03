@@ -55,10 +55,9 @@ const Layout = () => {
                         <Link className="nav-link" to="/mission">Our Mission</Link>
                      </li>
                   </ul>
-                  <form className="form-inline my-2 my-lg-0">
-                     <div className="search_icon"><a href="#"><img src="images/search-icon.png" /></a></div>
+                  <div className="form-inline my-2 my-lg-0">
                      <button className="donate_btn" type="submit">Donate Now</button>
-                  </form>
+                  </div>
                </div>
             </nav>
             <Outlet />
