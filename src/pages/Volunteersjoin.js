@@ -54,9 +54,11 @@ const Volunteersjoin = () => {
         const email = e.target.email.value
         const mobile = e.target.mobile.value
         
-        const address1 = e.target.mobile.value
-        const address2 = e.target.mobile.value
+        const address1 = e.target.address1.value
+        const address2 = e.target.address2.value
         const gender = e.target.gender.value
+        const pincode = e.target.pincode.value
+
         console.log(address1,address2,gender)
 
         if (!email) {
@@ -76,12 +78,15 @@ const Volunteersjoin = () => {
         }
 
         if (name && email) {
-            axios.post(Volunteerjoin, { name: name, email: email, state: statevalue, city: cityvalue, mobile: mobile }).then(response => {
+            axios.post(Volunteerjoin, { name: name, email: email, state: statevalue, city: cityvalue, mobile: mobile , pincode :pincode ,address2:address2,address1:address1}).then(response => {
                 // setUserSession(response.data.token, response.data.user);
                 setMessage('store');
+                console.log('fdff')
                 //history('/dashboard');
             }).catch(error => {
+                console.log(error.response.data)
                 if (error.response.status === 401) setError(error.response.data.message);
+                else if (error.response.status === 422) setError(error.response.data);
                 else setError("Something went wrong. Please try again later.");
             });
         }
@@ -128,6 +133,8 @@ const Volunteersjoin = () => {
                         <div className="col-md-12">
                             <div className="mail_section_1">
                                 <h1 className="contact_taital">Register</h1>
+                                <div className="errorform" style={{ color: "red" }}>{error}</div>
+                                <div className="susscess" style={{ color: "green" }}>{sucessmesg}</div>
                                 <form onSubmit={handleSubmit} method="post">
                                     <div>
                                         <input type="text" className="mail_text_1" placeholder="Name" name="name" onChange={handleChange} />
